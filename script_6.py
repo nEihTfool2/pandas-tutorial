@@ -63,3 +63,36 @@ del df['Ticket']
 df = df.join(ticketdf)
 print_w_nl(df)
 
+# Applying A Function to Pandas DataFrame's Columns or Rows
+# Define Function
+doubler = lambda x: x*2
+
+df = pd.DataFrame(data=np.array([[1,2,3], [4,5,6], [7,8,9]]), columns=['A', 'B', 'C'])
+print_w_nl(df)
+
+# Apply the `doubler` function to the `A` DataFrame column
+df['A'] = df['A'].apply(doubler)
+print_w_nl(df)
+
+# Apply `doubler` on row using .loc[]
+df.loc[0] = df.loc[0].apply(doubler)
+print_w_nl(df)
+
+# Apply `doubler` elementwise with `map()`
+df['B'] = df['B'].map(doubler)
+print_w_nl(df)
+
+# Apply function to whole DataFrame
+doubled_df = df.applymap(doubler)
+print_w_nl(doubled_df)
+
+# pre defining functions, intstead of lambda
+def trippler(x):
+    if x % 3 == 0:
+        return x
+    else:
+        return x * 3
+
+# Use `applymap()` to apply `trippler()` to DataFrame
+trippled_df = df.applymap(trippler)
+print_w_nl(trippled_df)
